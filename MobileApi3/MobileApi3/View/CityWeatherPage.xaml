@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApi3.View.CityWeatherPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="CenterAndExpand">
+                <Label Text="Введите город:"
+                   FontSize="24"
+                   HorizontalTextAlignment="Start"/>
+                <Entry HeightRequest="25"
+                   WidthRequest="150"/>
+            </StackLayout>
+            <Button Text="Выдать информацию"
+                    HeightRequest="30"/>
+            <StackLayout>
+                
+            </StackLayout>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
