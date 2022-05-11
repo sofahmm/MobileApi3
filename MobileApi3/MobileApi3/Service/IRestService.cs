@@ -8,6 +8,6 @@ namespace MobileApi3.Service
 {
     public interface IRestService
     {
-        Task<List<Rootobject>> GetWeatherItemAsync();
+        Task<Rootobject> GetWeather(string city);
     }
 }

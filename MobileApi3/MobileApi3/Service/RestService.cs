@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MobileApi3.Model;
+using MobileApi3;
 
 namespace MobileApi3.Service
 {
-    public class RestService
+    public class RestService:IRestService
     {
-        HttpClient httpClient;
+        HttpClient client;
         JsonSerializerOptions serializerOptions;
-        public List<Rootobject> WeatherItem { get; set; }
+        Rootobject Weather { get; set; }
         public RestService()
         {
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.ServerCertificateCustomValidationCallback =
-                (message, cert, chain, errors) => { return true; };
+            (message, cert, chain, errors) => { return true; };
+
             client = new HttpClient(httpClientHandler);
 
             serializerOptions = new JsonSerializerOptions()
@@ -25,10 +28,32 @@ namespace MobileApi3.Service
                 WriteIndented = true,
             };
         }
-        public async Task<List<Rootobject>> GetWeatherItemAsync()
+
+        public async Task<Rootobject> GetWeather(string city)
         {
-            WeatherItem = new List<Rootobject>();
-            Uri uri = new Uri(string.Format(Constants))
+            Uri uri = new Uri($"{Constants.RestUrl}?q={city}&appid={Constants.GetApiKey()}&units=metric");
+            try
+            {
+                Debug.WriteLine("Start Requests");
+                HttpResponseMessage responseMessage = await client.GetAsync(uri);
+                Debug.WriteLine("End Request");
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    string content = await responseMessage.Content.ReadAsStringAsync();
+                    Weather = JsonSerializer.Deserialize<Rootobject>(content, serializerOptions);
+                }
+                else
+                {
+                    Debug.WriteLine("Bad Requset");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            return Weather;
         }
     }
 }

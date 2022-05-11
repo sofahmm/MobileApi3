@@ -4,20 +4,43 @@
              x:Class="MobileApi3.View.CityWeatherPage">
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="CenterAndExpand">
-                <Label Text="Введите город:"
-                   FontSize="24"
-                   HorizontalTextAlignment="Start"/>
-                <Entry HeightRequest="25"
-                   WidthRequest="150"/>
-            </StackLayout>
-            <Button Text="Выдать информацию"
-                    HeightRequest="30"/>
-            <StackLayout>
-                
+            <SearchBar x:Name="searchBar" 
+                       HorizontalOptions="CenterAndExpand" 
+                       SearchButtonPressed="SearchBar_SearchButtonPressed"/>
+            <StackLayout Spacing="10" Padding="20">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Temp:"/>
+                    <Label Text="{Binding main.temp}"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Feels like:"/>
+                    <Label Text="{Binding main.feels_like}"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Wind speed:"/>
+                    <Label Text="{Binding wind.speed}"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Wind deg:"/>
+                    <Label Text="{Binding wind.deg}"/>
+                </StackLayout>
+
+                <ListView ItemsSource="{Binding weather}" HasUnevenRows="True" HeightRequest="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Weather:"/>
+                                    <Label Text="{Binding description}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </StackLayout>
-
     </ContentPage.Content>
 </ContentPage>
