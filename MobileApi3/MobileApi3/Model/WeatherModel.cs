@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace MobileApi3.Model
 {
@@ -64,5 +65,17 @@ namespace MobileApi3.Model
         public string main { get; set; }
         public string description { get; set; }
         public string icon { get; set; }
+        public UriImageSource IconImage
+        {
+            get
+            {
+                return new UriImageSource
+                {
+                    Uri = new Uri($"https://openweathermap.org/img/wn/{icon}@2x.png", UriKind.Absolute),
+                    CachingEnabled = true,
+                    CacheValidity = TimeSpan.FromDays(1)
+                };
+            }
+        }
     }
 }

@@ -25,15 +25,18 @@
 
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Wind deg:"/>
-                    <Label Text="{Binding wind.deg}"/>
+                    <Label Text="{Binding wind.weg}"/>
                 </StackLayout>
 
+                
+                
                 <ListView ItemsSource="{Binding weather}" HasUnevenRows="True" HeightRequest="100">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Weather:"/>
+                                    <Image x:Name="IconImage" Source="{Binding IconImage}"/>
                                     <Label Text="{Binding description}"/>
                                 </StackLayout>
                             </ViewCell>
